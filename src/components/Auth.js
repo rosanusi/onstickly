@@ -67,15 +67,13 @@ class Login extends Component {
             return (
 
 
-
                 <div className="auth-container">
-    
+
                     <div className="auth-form">
     
                         <h1 className="title">
                             Sign in to use <span className="name-brand">Onstickly</span>
                         </h1>
-    
     
                         <form>
                             <input 

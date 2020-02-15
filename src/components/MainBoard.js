@@ -1,39 +1,63 @@
 import React from 'react';
+import {Link } from "react-router-dom";
 
 function MainBoard(props) {
 
 
+        console.log(props)
+
         let user = props.userData;
         let sessions = props.activeUserSessions;
 
+        let sessionBoardsLenght = (array) => {
+            let formattedArray = Object.entries(array).map(e => Object.assign(e[1], { key: e[0] }));
+            if(formattedArray.length > 1){
+                return formattedArray.length + ' boards'
+            }else{
+                return formattedArray.length + ' board'
+            }
+        }
+
+
         const MainList = sessions.map((session, index) =>
-            <li 
+            <li
                 className="session-block"
-                key={session.id}>
-                <h3 className="title">{session.title}</h3>
-                <span className="num_board">{ session.boards ? session.boards.length : '0 board' }</span>
+                key={session.id}
+                // onClick={props.showSessionBlocks.bind(this, session.id)} 
+            >
+                <Link to={`/boards/${session.id}`}>
+                    <div className="title">                        
+                        <span>{session.title}</span>
+                        <span className="num_board">{ session.boards ? sessionBoardsLenght(session.boards) : '0 board' }</span>
+                    </div>
+                </Link>
             </li>
         );
 
 
         return (
-            <div className="main-list-container">
-                <div className="main-list_header">
-                    <h1 className="title">{user.displayName}'s Library</h1>
-                    <button 
-                        type="button" 
-                        className="createBtn"
-                        onClick={props.newBoardModal}
-                    >
-                        New session
-                    </button>
+
+            <>
+                <div className="main-list-container">
+                    <div className="main-list_header">
+                        <h1 className="title">{user.displayName}'s Library</h1>
+                        <button 
+                            type="button" 
+                            className="createBtn"
+                            onClick={props.newSessionModal}
+                        >
+                            New session
+                        </button>
+                    </div>
+
+                    <ul className="main-list">
+                        {MainList}
+                    </ul>
                 </div>
-                <ul className="main-list">
-                    {MainList}
-                </ul>
-            </div>
+            </>
+
         );
-    // }
+
 }
 
 export default MainBoard;

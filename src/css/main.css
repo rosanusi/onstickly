@@ -175,6 +175,35 @@ header .loggedinUserDet .email {
   color: #86817E;
 }
 
+.block-container {
+  display: grid;
+  width: 100%;
+  position: relative;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+.block-container .session-block {
+  position: relative;
+  padding: 20px;
+  min-height: 264px;
+  background-color: #f1e7e9;
+  display: flex;
+  flex-flow: column;
+  border-radius: 8px;
+}
+.block-container .session-block .title {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+.block-container .session-block .stickies-num {
+  display: block;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #86817E;
+}
+
 .auth-container {
   display: flex;
   flex-flow: column;
@@ -236,7 +265,7 @@ header .loggedinUserDet .email {
   outline: none;
 }
 
-input {
+input, textarea {
   width: 100%;
   padding-left: 16px;
   padding-top: 8px;
@@ -248,6 +277,12 @@ input {
   border-radius: 4px;
   background-color: #F6F2EF;
   font-family: "Bianco Sans Regular";
+}
+input:focus, input:active, textarea:focus, textarea:active {
+  outline: none;
+}
+input:hover, textarea:hover {
+  background-color: #f0eae5;
 }
 
 .modal-container {
@@ -281,6 +316,16 @@ input {
   margin-top: 16px;
   margin-bottom: 16px;
 }
+.modal-container .modal textarea {
+  width: 100%;
+  font-size: 0.9em;
+  color: #333333;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  min-height: 400px;
+  padding: 0;
+  background: none !important;
+}
 .modal-container .modal button {
   background: none;
   border: none;
@@ -289,6 +334,16 @@ input {
   font-size: 0.9em;
   color: #725EF8;
   cursor: pointer;
+}
+
+.title-block .title {
+  margin-bottom: 8px;
+}
+.title-block small {
+  font-size: 0.9em;
+  color: #86817E;
+  display: inline-block;
+  margin-right: 12px;
 }
 
 /* general system overrides

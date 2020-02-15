@@ -12,9 +12,6 @@
   font-style:normal;font-weight:400;
 }
 
-
-
-
 * {
   box-sizing: border-box;
 }
@@ -174,8 +171,43 @@ header {
 }
 
 
-.auth-container {
+.block-container {
+  display: grid;
+  width: 100%;
+  position : relative;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-gap : 20px;
 
+  .session-block {
+    position: relative;
+    padding: 20px;
+    min-height: 264px;
+    background-color : #f1e7e9;
+    display: flex;
+    flex-flow: column;
+    border-radius: 8px;
+
+    .title {
+      font-size : 1.1em;
+      line-height: 1.5;
+    }
+
+    .stickies-num {
+      display: block;
+      position: absolute;
+      bottom : 20px;
+      right : 20px;
+      color : $light-color
+    }
+
+
+  }
+}
+
+
+
+.auth-container {
 
   display: flex;
   flex-flow: column;
@@ -257,7 +289,7 @@ header {
 }
 
 
-input {
+input, textarea {
   width : 100%;
   padding-left : 16px;
   padding-top : 8px;
@@ -272,6 +304,14 @@ input {
   border-radius : 4px;
   background-color : $block-color;
   font-family:"Bianco Sans Regular";
+
+  &:focus, &:active {
+    outline : none;
+  }
+
+  &:hover {
+    background-color: darken($block-color, 3%);
+  }
 }
 
 .modal-container {
@@ -307,6 +347,17 @@ input {
       margin-bottom : 16px;
     }
 
+    textarea {
+      width : 100%;
+      font-size : .9em;
+      color : $body-color;
+      margin-top : 16px;
+      margin-bottom : 16px;
+      min-height: 400px;
+      padding : 0;
+      background : none !important;
+    }
+
     button {
       background : none;
       border: none;
@@ -319,7 +370,21 @@ input {
 
   }
 
+}
 
+
+.title-block {
+
+  .title {
+    margin-bottom : 8px;
+  }
+
+  small {
+    font-size : .9em;
+    color : $light-color;
+    display: inline-block;
+    margin-right: 12px;
+  }
 }
 
 

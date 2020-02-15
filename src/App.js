@@ -80,7 +80,8 @@ class App extends Component {
     let newSession = {
       id: uuid(),
       title: sessionTitle,
-      dateCreated: Date.now()
+      dateCreated: Date.now(),
+      owner: activeUser.email
     }
 
     let ref = firebase.database().ref(`sessionsData/${id}`);
@@ -88,6 +89,37 @@ class App extends Component {
 
     this.getUserSessions()
     
+  }
+
+  async handleAddNewBoard(sessionId, boardName){
+    let {activeUser} = this.state;
+    let userId = activeUser.id;
+
+    console.log()
+
+    let newBoard= {
+      id: uuid(),
+      title: boardName,
+      dateCreated: Date.now(),
+      owner: activeUser.email
+    }
+
+    let ref = firebase.database().ref(`sessionsData/${userId}`).orderByChild("id").equalTo(sessionId);
+
+    let sessionKey;
+    await ref.once('child_added', function(snapshot) {
+        sessionKey = snapshot.key;
+    });
+
+    console.log(userId)
+    console.log(sessionId)
+    console.log(sessionKey)
+
+    let sessionRef = firebase.database().ref(`sessionsData/${userId}/${sessionKey}/boards`);
+    await sessionRef.push(newBoard);
+
+    this.getUserSessions()
+
   }
 
 
@@ -125,7 +157,7 @@ class App extends Component {
 
 
   snapshotToArray(snapshot) {
-    var returnArr = [];
+    let returnArr = [];
 
     snapshot.forEach(function(childSnapshot) {
         var item = childSnapshot.val();
@@ -145,10 +177,9 @@ class App extends Component {
 
     return (
       <>
-
         {
           !user &&
-          <Auth 
+          <Auth
             registerNewUser = {this.registerNewUser.bind(this)}
             getUserData = {this.getUserData.bind(this)}
           />
@@ -159,9 +190,11 @@ class App extends Component {
             activeUser = {this.state.activeUser}
             activeUserSessions = {this.state.activeUserSessions}
             handleAddNewSession = {this.handleAddNewSession.bind(this)}
-            logout = {this.logout.bind(this)}
-          /> 
+            handleAddNewBoard = {this.handleAddNewBoard.bind(this)}
+            logout = {this.logout.bind(this)}              
+          />
         }
+
       </>
     );
   }
