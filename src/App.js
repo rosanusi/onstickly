@@ -4,6 +4,7 @@ import Home from './components/Home'
 import Auth from './components/Auth'
 import { uuid } from 'uuidv4';
 import './css/main.css';
+import { Route } from "react-router-dom";
 
 
 class App extends Component {
@@ -75,7 +76,6 @@ class App extends Component {
   handleAddNewSession(sessionTitle){
 
     let {activeUser} = this.state;
-    let id = activeUser.id;
 
     let newSession = {
       id: uuid(),
@@ -84,7 +84,7 @@ class App extends Component {
       owner: activeUser.email
     }
 
-    let ref = firebase.database().ref(`sessionsData/${id}`);
+    let ref = firebase.database().ref("sessionsData");
     ref.push(newSession);
 
     this.getUserSessions()
@@ -104,7 +104,7 @@ class App extends Component {
       owner: activeUser.email
     }
 
-    let ref = firebase.database().ref(`sessionsData/${userId}`).orderByChild("id").equalTo(sessionId);
+    let ref = firebase.database().ref("sessionsData").orderByChild("id").equalTo(sessionId);
 
     let sessionKey;
     await ref.once('child_added', function(snapshot) {
@@ -115,7 +115,7 @@ class App extends Component {
     console.log(sessionId)
     console.log(sessionKey)
 
-    let sessionRef = firebase.database().ref(`sessionsData/${userId}/${sessionKey}/boards`);
+    let sessionRef = firebase.database().ref(`sessionsData/${sessionKey}/boards`);
     await sessionRef.push(newBoard);
 
     this.getUserSessions()
@@ -127,7 +127,7 @@ class App extends Component {
 
     let { activeUser } = this.state;
 
-    let ref = firebase.database().ref(`sessionsData/${activeUser.id}`).orderByKey();
+    let ref = firebase.database().ref("sessionsData").orderByKey();
    
     let userSessions;
 
@@ -140,7 +140,9 @@ class App extends Component {
     this.setState((state, props) => { return { 
       activeUserSessions : userSessions.reverse(),
       loading : false
-    }});
+    }}, () => {
+      console.log(this.state.activeUserSessions)
+    });
     
 
   }
@@ -186,13 +188,16 @@ class App extends Component {
         }
 
         { loading ?  <h1>LOADDDDDDDDDDDDDDDDDDIIIIIIIIIIIIIIIIIINNNNNNNNNNNGGGGGGGGGGG</h1> :
-          <Home 
-            activeUser = {this.state.activeUser}
-            activeUserSessions = {this.state.activeUserSessions}
-            handleAddNewSession = {this.handleAddNewSession.bind(this)}
-            handleAddNewBoard = {this.handleAddNewBoard.bind(this)}
-            logout = {this.logout.bind(this)}              
-          />
+            
+        <Home 
+        activeUser = {this.state.activeUser}
+        activeUserSessions = {this.state.activeUserSessions}
+        handleAddNewSession = {this.handleAddNewSession.bind(this)}
+        handleAddNewBoard = {this.handleAddNewBoard.bind(this)}
+        logout = {this.logout.bind(this)}              
+        /> 
+
+
         }
 
       </>

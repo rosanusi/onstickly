@@ -25,9 +25,9 @@ function MainBoard(props) {
                 key={session.id}
                 // onClick={props.showSessionBlocks.bind(this, session.id)} 
             >
-                <Link to={`/boards/${session.id}`}>
+                <Link to={`/${session.id}`}>
                     <div className="title">                        
-                        <span>{session.title}</span>
+                        <span>{session.title}</span>wddssd
                         <span className="num_board">{ session.boards ? sessionBoardsLenght(session.boards) : '0 board' }</span>
                     </div>
                 </Link>

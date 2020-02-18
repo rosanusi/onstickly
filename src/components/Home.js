@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Header from './Header'
 import MainBoard from './MainBoard'
 import NewSessionForm from './NewSessionForm';
-
 import SessionBlocks from './SessionBlocks'
+import StickyBlock from './StickyBlock'
 import { Route } from "react-router-dom";
 
 class Home extends Component {
@@ -92,7 +92,7 @@ class Home extends Component {
                     />
 
                     <Route 
-                        path={`/boards/:sessionId`} exact render={ props => {                
+                        path={`/:sessionId`} exact render={ props => {                
                         return (                        
                             <SessionBlocks 
                             {...props}
@@ -102,6 +102,17 @@ class Home extends Component {
                             newBoardForm = {this.state.newBoardForm}
                             addNewBoard = {this.addNewBoard.bind(this)}
                             handleChange = {this.handleChange.bind(this)}
+                            /> )
+                        }}
+                    />       
+
+                    <Route 
+                        path={`/:sessionKey/:boardId`} exact render={ props => {                
+                        return (                        
+                            <StickyBlock
+                            {...props}
+                            // userData={this.props.activeUser} 
+                            // activeUserSessions = {this.props.activeUserSessions}
                             /> )
                         }}
                     />              
