@@ -14,7 +14,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "styled-components": "^5.0.0",
-    "uuidv4": "^6.0.2"
+    "uuidv4": "^6.2.10"
   },
   "scripts": {
     "css": "sass --watch src/scss/:src/css/",
